@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dispatch</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#F5F5F7}
+a{color:#0066CC}a:hover{color:#004C99}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F5F7; color: #1D1D1F; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.4">
+
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid #E5E5EA">
+<div style="max-width: 1200px; margin: 0 auto; padding: 6px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; text-decoration: none; color: #1D1D1F"><img src="/_blob/402ea40755df1545e1e6f48ac2af38c5" alt="Action Elevator" style="height: 40px; width: auto; display: block"><span style="width: 1px; height: 24px; background: #D2D2D7"></span><span style="font-size: 15px; font-weight: 600; letter-spacing: -0.01em">Safety Testing</span></a>
+<nav aria-label="Sections" style="display: flex; gap: 2px; flex-wrap: wrap">
+<a href="Main.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Cases</a>
+<a href="Coverage.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Coverage</a>
+<a href="Dispatch.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 600; background: #1D1D1F; color: #FFFFFF">Dispatch</a>
+<a href="Reconcile.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Reconcile</a>
+<a href="Reinspection.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Reinspection</a>
+</nav>
+<div aria-label="Signed in as Testing Coordinator" style="width: 32px; height: 32px; border-radius: 50%; background: #D2D2D7; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #1D1D1F">TC</div>
+</div>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; display: flex; flex-direction: column; gap: 28px">
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-size: 40px; font-weight: 700; letter-spacing: -0.025em">Dispatch</h1>
+<p style="margin: 0; font-size: 17px; color: #6E6E73">3 cases ready to schedule · matched by area, due month and customer timing</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+
+<div style="grid-column: span 3; display: flex; flex-direction: column; gap: 16px">
+
+<section aria-label="Service areas" style="background: #FFFFFF; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<div style="font-size: 13px; font-weight: 600; color: #6E6E73; text-transform: uppercase; letter-spacing: 0.04em">Service areas</div>
+<div style="font-size: 13px; color: #6E6E73">Highlighted: {{techArea}}</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{zones}}" as="z" hint-placeholder-count="6">
+<sc-if value="{{z.on}}" hint-placeholder-val="{{false}}">
+<div style="background: #0066CC; color: #FFFFFF; border-radius: 14px; padding: 16px; min-height: 96px; display: flex; flex-direction: column; justify-content: space-between">
+<div style="font-weight: 600">{{z.name}}</div>
+<div style="font-size: 13px">{{z.cases}}</div>
+</div>
+</sc-if>
+<sc-if value="{{z.off}}" hint-placeholder-val="{{true}}">
+<div style="background: #F5F5F7; color: #1D1D1F; border-radius: 14px; padding: 16px; min-height: 96px; display: flex; flex-direction: column; justify-content: space-between">
+<div style="font-weight: 600">{{z.name}}</div>
+<div style="font-size: 13px; color: #6E6E73">{{z.cases}}</div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</section>
+
+<section aria-label="Cases to assign" style="background: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<div style="padding: 20px 24px 8px; font-size: 13px; font-weight: 600; color: #6E6E73; text-transform: uppercase; letter-spacing: 0.04em">Cases to assign</div>
+<sc-for list="{{cases}}" as="c" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 16px; padding: 14px 24px; border-top: 1px solid #F0F0F2; flex-wrap: wrap">
+<div style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px">
+<div style="font-weight: 600">{{c.site}}</div>
+<div style="font-size: 13px; color: #6E6E73">{{c.id}} · {{c.area}}</div>
+</div>
+<div style="width: 90px; font-size: 14px"><div style="font-size: 12px; color: #6E6E73">Due</div>{{c.due}}</div>
+<div style="width: 170px; font-size: 14px"><div style="font-size: 12px; color: #6E6E73">Customer timing</div>{{c.window}}</div>
+</div>
+</sc-for>
+</section>
+</div>
+
+<div style="grid-column: span 2; display: flex; flex-direction: column; gap: 16px">
+
+<section aria-label="Suggested technicians" style="background: #FFFFFF; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<div style="font-size: 13px; font-weight: 600; color: #6E6E73; text-transform: uppercase; letter-spacing: 0.04em">Best match</div>
+<sc-for list="{{techs}}" as="t" hint-placeholder-count="3">
+<sc-if value="{{t.on}}" hint-placeholder-val="{{false}}">
+<button onClick="{{t.pick}}" aria-pressed="true" style="text-align: left; font: inherit; color: #1D1D1F; background: #FFFFFF; border: 2px solid #0066CC; border-radius: 14px; padding: 14px 16px; min-height: 44px; cursor: pointer; display: flex; gap: 12px; align-items: center">
+<span style="width: 40px; height: 40px; border-radius: 50%; background: #E6F0FC; color: #0B57B0; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{t.initials}}</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 600">{{t.name}}</span>
+<span style="font-size: 13px; color: #6E6E73">{{t.why}}</span>
+</span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="#0066CC" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</sc-if>
+<sc-if value="{{t.off}}" hint-placeholder-val="{{true}}">
+<button onClick="{{t.pick}}" aria-pressed="false" style="text-align: left; font: inherit; color: #1D1D1F; background: #FFFFFF; border: 2px solid #E5E5EA; border-radius: 14px; padding: 14px 16px; min-height: 44px; cursor: pointer; display: flex; gap: 12px; align-items: center">
+<span style="width: 40px; height: 40px; border-radius: 50%; background: #F0F0F2; color: #3C3C43; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{t.initials}}</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 600">{{t.name}}</span>
+<span style="font-size: 13px; color: #6E6E73">{{t.why}}</span>
+</span>
+<span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #C7C7CC"></span>
+</button>
+</sc-if>
+</sc-for>
+</section>
+
+<section aria-label="FIELDBOSS" style="background: #FFFFFF; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 13px; font-weight: 600; color: #6E6E73; text-transform: uppercase; letter-spacing: 0.04em">FIELDBOSS</div>
+<div style="font-size: 20px; font-weight: 700; letter-spacing: -0.01em">{{fbTitle}}</div>
+</div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
+<li style="display: flex; gap: 12px; align-items: flex-start">
+<sc-if value="{{st.done}}" hint-placeholder-val="{{false}}">
+<span style="width: 22px; height: 22px; border-radius: 50%; background: #1D7A3A; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+</sc-if>
+<sc-if value="{{st.pending}}" hint-placeholder-val="{{true}}">
+<span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #C7C7CC; flex-shrink: 0"></span>
+</sc-if>
+<span>{{st.text}}</span>
+</li>
+</sc-for>
+</ul>
+<sc-if value="{{pending}}" hint-placeholder-val="{{true}}">
+<button onClick="{{generate}}" style="border: 0; background: #0066CC; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; min-height: 50px; border-radius: 999px; cursor: pointer">Assign &amp; create service activities</button>
+</sc-if>
+<sc-if value="{{done}}" hint-placeholder-val="{{false}}">
+<div style="background: #F5F5F7; border-radius: 12px; padding: 12px 14px; font-size: 14px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 600">SA-88213 · SA-88214 · SA-88215</span>
+<span style="color: #6E6E73">Assigned to {{techName}} · no manual entry</span>
+</div>
+<button onClick="{{undo}}" style="border: 0; background: transparent; color: #0066CC; font: inherit; font-size: 15px; min-height: 44px; cursor: pointer">Undo</button>
+</sc-if>
+</section>
+</div>
+</div>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const pick = s.tech || 'ml';
+    const done = !!s.done;
+    const TECHS = [
+      { id: 'ml', name: 'Marcus Lee', initials: 'ML', area: 'Central', why: 'Central · 2 of 3 cases nearby · works evenings' },
+      { id: 'do', name: 'Dana Ortiz', initials: 'DO', area: 'North', why: 'North · 1 case nearby · open Tue/Thu' },
+      { id: 'sp', name: 'Sam Patel', initials: 'SP', area: 'East', why: 'East · 0 cases nearby · open all week' }
+    ];
+    const tech = TECHS.find((t) => t.id === pick);
+    const ZONES = [['North', '1 case'], ['Central', '2 cases'], ['East', 'No cases'], ['West', 'No cases'], ['Harbor', 'No cases'], ['South', 'No cases']];
+    return {
+      techArea: tech.area,
+      techName: tech.name,
+      zones: ZONES.map(([name, cases]) => ({ name, cases, on: name === tech.area, off: name !== tech.area })),
+      cases: [
+        { id: 'ST-10493', site: 'Parkline Office Plaza', area: 'Central', due: 'Oct 14', window: 'Weekdays after 6 pm' },
+        { id: 'ST-10518', site: 'Westbrook Apartments', area: 'Central', due: 'Nov 9', window: 'Mornings only' },
+        { id: 'ST-10531', site: 'Maple Court Senior Living', area: 'North', due: 'Dec 2', window: 'Tue or Thu' }
+      ],
+      techs: TECHS.map((t) => ({ ...t, on: t.id === pick, off: t.id !== pick, pick: () => this.setState({ tech: t.id, done: false }) })),
+      steps: [
+        { text: 'Copy a service activity for each assigned technician' },
+        { text: 'Remove safety-test associations where required' },
+        { text: 'Update resource assignments' },
+        { text: 'Link timecards' }
+      ].map((x) => ({ ...x, done, pending: !done })),
+      done, pending: !done,
+      fbTitle: done ? 'Done. 3 service activities created.' : 'This happens automatically',
+      generate: () => this.setState({ done: true }),
+      undo: () => this.setState({ done: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

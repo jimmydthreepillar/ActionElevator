@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Signal Reconciliation</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#F5F5F7}
+a{color:#0066CC}a:hover{color:#004C99}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F5F7; color: #1D1D1F; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.4">
+
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid #E5E5EA">
+<div style="max-width: 1200px; margin: 0 auto; padding: 6px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; text-decoration: none; color: #1D1D1F"><img src="/_blob/402ea40755df1545e1e6f48ac2af38c5" alt="Action Elevator" style="height: 40px; width: auto; display: block"><span style="width: 1px; height: 24px; background: #D2D2D7"></span><span style="font-size: 15px; font-weight: 600; letter-spacing: -0.01em">Safety Testing</span></a>
+<nav aria-label="Sections" style="display: flex; gap: 2px; flex-wrap: wrap">
+<a href="Main.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Cases</a>
+<a href="Coverage.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Coverage</a>
+<a href="Dispatch.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Dispatch</a>
+<a href="Reconcile.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 600; background: #1D1D1F; color: #FFFFFF">Reconcile</a>
+<a href="Reinspection.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Reinspection</a>
+</nav>
+<div aria-label="Signed in as Testing Coordinator" style="width: 32px; height: 32px; border-radius: 50%; background: #D2D2D7; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #1D1D1F">TC</div>
+</div>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 40px 32px 80px; display: flex; flex-direction: column; gap: 24px">
+
+<a href="Main.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; min-height: 44px; text-decoration: none; font-size: 15px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+Open Cases</a>
+
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: -8px">
+<h1 style="margin: 0; font-size: 40px; font-weight: 700; letter-spacing: -0.025em">Northgate Medical Center</h1>
+<p style="margin: 0; font-size: 17px; color: #6E6E73">ST-10477 · Service car B · Annual safety test</p>
+</div>
+
+<section aria-label="Discrepancy alert" role="alert" style="background: #B3261E; color: #FFFFFF; border-radius: 20px; padding: 22px 26px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap">
+<div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9.5 17h-19z"></path><path d="M12 10v4"></path><path d="M12 17.5v.01"></path></svg>
+</div>
+<div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 20px; font-weight: 700; letter-spacing: -0.01em">The results don’t match</div>
+<div>The mechanic passed this test, but the QEI report lists 2 deficiencies. This case can’t close until you review the report.</div>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr); gap: 12px; align-items: stretch">
+
+<section aria-label="Mechanic outcome" style="background: #FFFFFF; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<div style="font-size: 13px; font-weight: 600; color: #6E6E73; text-transform: uppercase; letter-spacing: 0.04em">Mechanic · Field result</div>
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 52px; height: 52px; border-radius: 50%; background: #E3F5E8; display: flex; align-items: center; justify-content: center">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1D7A3A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+</div>
+<div style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em">Passed</div>
+</div>
+<dl style="margin: 0; display: flex; flex-direction: column; border-top: 1px solid #F0F0F2">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid #F0F0F2"><dt style="color: #6E6E73">Technician</dt><dd style="margin: 0; font-weight: 500">R. Alvarez</dd></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid #F0F0F2"><dt style="color: #6E6E73">Tested</dt><dd style="margin: 0; font-weight: 500">Sep 22, 2026</dd></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 13px 0"><dt style="color: #6E6E73">Source</dt><dd style="margin: 0; font-weight: 500">FIELDBOSS safety test outcome</dd></div>
+</dl>
+<div style="background: #F5F5F7; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 12px; color: #6E6E73">Technician notes</div>
+<div>All devices operated normally. No issues observed.</div>
+</div>
+</section>
+
+<div style="display: flex; align-items: center; justify-content: center">
+<div aria-label="Does not match" style="width: 48px; height: 48px; border-radius: 50%; background: #FFFFFF; border: 2px solid #B3261E; color: #B3261E; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center">≠</div>
+</div>
+
+<section aria-label="QEI report" style="background: #FFFFFF; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 20px; border: 2px solid #B3261E">
+<div style="font-size: 13px; font-weight: 600; color: #6E6E73; text-transform: uppercase; letter-spacing: 0.04em">QEI · Inspection report</div>
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 52px; height: 52px; border-radius: 50%; background: #FDE9E8; display: flex; align-items: center; justify-content: center">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B3261E" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10"></path><path d="M17 7L7 17"></path></svg>
+</div>
+<div style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em">2 deficiencies</div>
+</div>
+<dl style="margin: 0; display: flex; flex-direction: column; border-top: 1px solid #F0F0F2">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid #F0F0F2"><dt style="color: #6E6E73">Inspector</dt><dd style="margin: 0; font-weight: 500">K. Brennan, QEI</dd></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid #F0F0F2"><dt style="color: #6E6E73">Received</dt><dd style="margin: 0; font-weight: 500">Sep 29, 2026</dd></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 13px 0"><dt style="color: #6E6E73">Source</dt><dd style="margin: 0; font-weight: 500"><a href="#report">QEI-NG-0922.pdf</a></dd></div>
+</dl>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
+<li style="background: #FDE9E8; border-radius: 12px; padding: 12px 14px; display: flex; gap: 12px"><span style="font-weight: 700; color: #B3261E">1</span><span><span style="font-weight: 600">Pit stop switch inoperative</span><br><span style="font-size: 13px; color: #6E6E73">Code ref [CODE SECTION]</span></span></li>
+<li style="background: #FDE9E8; border-radius: 12px; padding: 12px 14px; display: flex; gap: 12px"><span style="font-weight: 700; color: #B3261E">2</span><span><span style="font-weight: 600">Car door restrictor out of adjustment</span><br><span style="font-size: 13px; color: #6E6E73">Code ref [CODE SECTION]</span></span></li>
+</ol>
+</section>
+</div>
+
+<section aria-label="Resolve" style="background: #FFFFFF; border-radius: 20px; padding: 24px 28px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<sc-if value="{{open}}" hint-placeholder-val="{{true}}">
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; font-size: 16px">
+<input type="checkbox" checked="{{reviewed}}" onChange="{{toggle}}" style="width: 22px; height: 22px; accent-color: #0066CC; margin: 0">
+<span>I’ve reviewed the QEI report and its deficiencies</span>
+</label>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid #F0F0F2; padding-top: 18px">
+<div style="display: flex; align-items: center; gap: 10px; color: #6E6E73">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6E6E73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+<span>Closing as passed is blocked while the results disagree.</span>
+</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<button disabled="{{true}}" style="border: 0; background: #E8E8ED; color: #6E6E73; font: inherit; font-size: 16px; font-weight: 600; min-height: 48px; padding: 0 24px; border-radius: 999px; cursor: not-allowed">Close as passed</button>
+<sc-if value="{{reviewed}}" hint-placeholder-val="{{false}}">
+<button onClick="{{route}}" style="border: 0; background: #0066CC; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; min-height: 48px; padding: 0 24px; border-radius: 999px; cursor: pointer">Send to Deficiency Review</button>
+</sc-if>
+<sc-if value="{{notReviewed}}" hint-placeholder-val="{{true}}">
+<button disabled="{{true}}" style="border: 0; background: #A8C7EA; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; min-height: 48px; padding: 0 24px; border-radius: 999px; cursor: not-allowed">Send to Deficiency Review</button>
+</sc-if>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{routed}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap">
+<div style="width: 44px; height: 44px; border-radius: 50%; background: #E3F5E8; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1D7A3A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+</div>
+<div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 17px; font-weight: 600">Moved to Deficiency Review</div>
+<div style="color: #6E6E73">The QEI result governs. A linked reinspection case opens when this case closes.</div>
+</div>
+<a href="Reinspection.dc.html" style="display: inline-flex; align-items: center; background: #0066CC; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 600; min-height: 48px; padding: 0 24px; border-radius: 999px">View reinspection</a>
+<button onClick="{{reset}}" style="border: 0; background: transparent; color: #0066CC; font: inherit; font-size: 15px; min-height: 44px; padding: 0 8px; cursor: pointer">Undo</button>
+</div>
+</sc-if>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const reviewed = !!s.reviewed;
+    const routed = !!s.routed;
+    return {
+      reviewed, notReviewed: !reviewed, routed, open: !routed,
+      toggle: () => this.setState({ reviewed: !reviewed }),
+      route: () => this.setState({ routed: true }),
+      reset: () => this.setState({ routed: false, reviewed: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

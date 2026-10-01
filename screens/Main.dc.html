@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Open Cases</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#F5F5F7}
+a{color:#0066CC}a:hover{color:#004C99}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F5F7; color: #1D1D1F; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.4">
+
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid #E5E5EA">
+<div style="max-width: 1200px; margin: 0 auto; padding: 6px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; text-decoration: none; color: #1D1D1F"><img src="/_blob/402ea40755df1545e1e6f48ac2af38c5" alt="Action Elevator" style="height: 40px; width: auto; display: block"><span style="width: 1px; height: 24px; background: #D2D2D7"></span><span style="font-size: 15px; font-weight: 600; letter-spacing: -0.01em">Safety Testing</span></a>
+<nav aria-label="Sections" style="display: flex; gap: 2px; flex-wrap: wrap">
+<a href="Main.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 600; background: #1D1D1F; color: #FFFFFF">Cases</a>
+<a href="Coverage.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Coverage</a>
+<a href="Dispatch.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Dispatch</a>
+<a href="Reconcile.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Reconcile</a>
+<a href="Reinspection.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: #1D1D1F">Reinspection</a>
+</nav>
+<div aria-label="Signed in as Testing Coordinator" style="width: 32px; height: 32px; border-radius: 50%; background: #D2D2D7; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #1D1D1F">TC</div>
+</div>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; display: flex; flex-direction: column; gap: 28px">
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-size: 40px; font-weight: 700; letter-spacing: -0.025em">Open Cases</h1>
+<p style="margin: 0; font-size: 17px; color: #6E6E73">{{shownCount}} of 12 cases · by due month, highest priority first</p>
+</div>
+
+<section aria-label="Overdue reports" style="background: #FFFFFF; border-radius: 18px; padding: 20px 24px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<div style="width: 44px; height: 44px; border-radius: 50%; background: #FFF1E0; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B25000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+</div>
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 17px; font-weight: 600">3 QEI reports are overdue</div>
+<div style="color: #6E6E73">No report received within 7 days of inspection. Follow up with the inspector and the customer.</div>
+</div>
+<button onClick="{{toggleStale}}" style="border: 0; background: #0066CC; color: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 22px; border-radius: 999px; cursor: pointer">{{staleLabel}}</button>
+</section>
+
+<section aria-label="Status" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{tiles}}" as="t" hint-placeholder-count="5">
+<sc-if value="{{t.on}}" hint-placeholder-val="{{false}}">
+<button onClick="{{t.pick}}" aria-pressed="true" style="text-align: left; border: 2px solid #1D1D1F; background: #FFFFFF; font: inherit; color: #1D1D1F; border-radius: 16px; padding: 16px 18px; min-height: 108px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; gap: 10px">
+<span style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; line-height: 1">{{t.count}}</span>
+<span style="display: inline-flex; align-self: flex-start; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: {{t.bg}}; color: {{t.fg}}">{{t.label}}</span>
+</button>
+</sc-if>
+<sc-if value="{{t.off}}" hint-placeholder-val="{{true}}">
+<button onClick="{{t.pick}}" aria-pressed="false" style="text-align: left; border: 2px solid transparent; background: #FFFFFF; font: inherit; color: #1D1D1F; border-radius: 16px; padding: 16px 18px; min-height: 108px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<span style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; line-height: 1">{{t.count}}</span>
+<span style="display: inline-flex; align-self: flex-start; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: {{t.bg}}; color: {{t.fg}}">{{t.label}}</span>
+</button>
+</sc-if>
+</sc-for>
+</section>
+
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<div role="group" aria-label="Due month" style="display: inline-flex; background: #E8E8ED; border-radius: 10px; padding: 3px; gap: 2px">
+<sc-for list="{{months}}" as="m" hint-placeholder-count="4">
+<sc-if value="{{m.on}}" hint-placeholder-val="{{false}}">
+<button onClick="{{m.pick}}" aria-pressed="true" style="border: 0; background: #FFFFFF; color: #1D1D1F; font: inherit; font-size: 14px; font-weight: 600; min-height: 38px; padding: 0 18px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.12); cursor: pointer">{{m.label}}</button>
+</sc-if>
+<sc-if value="{{m.off}}" hint-placeholder-val="{{true}}">
+<button onClick="{{m.pick}}" aria-pressed="false" style="border: 0; background: transparent; color: #3C3C43; font: inherit; font-size: 14px; font-weight: 500; min-height: 38px; padding: 0 18px; border-radius: 8px; cursor: pointer">{{m.label}}</button>
+</sc-if>
+</sc-for>
+</div>
+<sc-if value="{{hasFilter}}" hint-placeholder-val="{{false}}">
+<button onClick="{{clear}}" style="border: 0; background: transparent; color: #0066CC; font: inherit; font-size: 15px; min-height: 44px; padding: 0 8px; cursor: pointer">Clear filters</button>
+</sc-if>
+</div>
+
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+<section style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; gap: 10px; padding: 0 4px">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em">{{g.label}}</h2>
+<span style="color: #6E6E73; font-size: 15px">{{g.count}}</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 18px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04)">
+<sc-for list="{{g.cases}}" as="c" hint-placeholder-count="4">
+<a href="{{c.href}}" style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 16px 20px; min-height: 44px; text-decoration: none; color: #1D1D1F; border-bottom: 1px solid #F0F0F2">
+<div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<div style="font-size: 16px; font-weight: 600">{{c.site}}</div>
+<div style="font-size: 13px; color: #6E6E73">{{c.id}} · {{c.addr}}</div>
+</div>
+<div style="width: 96px; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 12px; color: #6E6E73">Due</div>
+<div style="font-weight: 500">{{c.due}}</div>
+</div>
+<div style="width: 92px; display: flex; align-items: center; gap: 6px">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: {{c.dot}}"></span>
+<span style="font-size: 14px; font-weight: 500">{{c.pri}}</span>
+</div>
+<div style="width: 236px">
+<span style="display: inline-flex; padding: 5px 11px; border-radius: 999px; font-size: 13px; font-weight: 600; background: {{c.bg}}; color: {{c.fg}}">{{c.status}}</span>
+</div>
+<div style="width: 176px; display: flex; align-items: center; gap: 6px">
+<sc-if value="{{c.stale}}" hint-placeholder-val="{{false}}">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B25000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9.5 17h-19z"></path><path d="M12 10v4"></path><path d="M12 17.5v.01"></path></svg>
+<span style="font-size: 13px; font-weight: 600; color: #B25000">Report {{c.late}} days late</span>
+</sc-if>
+</div>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#AEAEB2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+</a>
+</sc-for>
+</div>
+</section>
+</sc-for>
+
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+<div style="background: #FFFFFF; border-radius: 18px; padding: 48px; text-align: center; color: #6E6E73">No cases match these filters.</div>
+</sc-if>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1480}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const month = s.month || 'All';
+    const status = s.status || '';
+    const stale = !!s.stale;
+    const ST = {
+      approval: { label: 'Awaiting Customer Approval', bg: '#FFF1DC', fg: '#8A4B00', href: 'Coverage.dc.html' },
+      ready: { label: 'Ready to Schedule', bg: '#E6F0FC', fg: '#0B57B0', href: 'Dispatch.dc.html' },
+      sa: { label: 'Service Activity Generated', bg: '#EEEBFB', fg: '#4A3AB0', href: 'Dispatch.dc.html' },
+      qei: { label: 'Awaiting QEI Report', bg: '#EDEDF0', fg: '#3C3C43', href: 'Reconcile.dc.html' },
+      defic: { label: 'Deficiency Review', bg: '#FDE9E8', fg: '#B3261E', href: 'Reconcile.dc.html' }
+    };
+    const PR = { High: 0, Medium: 1, Low: 2 };
+    const DOT = { High: '#D70015', Medium: '#C25E00', Low: '#8E8E93' };
+    const CASES = [
+      { id: 'ST-10466', site: 'Cedar Point Mall', addr: 'Unit 3 · Hydraulic passenger', m: 'Oct', day: 2, pri: 'High', st: 'qei', late: 12 },
+      { id: 'ST-10482', site: 'Harbor View Towers', addr: 'Cars 1–4 · Traction', m: 'Oct', day: 3, pri: 'High', st: 'qei', late: 9 },
+      { id: 'ST-10477', site: 'Northgate Medical Center', addr: 'Service car B · Traction', m: 'Oct', day: 6, pri: 'High', st: 'defic' },
+      { id: 'ST-10520', site: 'Lakeside Clinic', addr: 'Car 2 · Hydraulic', m: 'Oct', day: 8, pri: 'Medium', st: 'qei', late: 8 },
+      { id: 'ST-10490', site: 'Riverside Lofts', addr: 'Car 1 · MRL traction', m: 'Oct', day: 10, pri: 'Medium', st: 'approval' },
+      { id: 'ST-10493', site: 'Parkline Office Plaza', addr: 'Cars 1–6 · Traction', m: 'Oct', day: 14, pri: 'Medium', st: 'ready' },
+      { id: 'ST-10501', site: 'Elm Street Library', addr: 'Car 1 · Hydraulic', m: 'Oct', day: 21, pri: 'Low', st: 'sa' },
+      { id: 'ST-10512', site: 'Summit Hotel', addr: 'Cars 1–3 · Traction', m: 'Nov', day: 4, pri: 'High', st: 'approval' },
+      { id: 'ST-10518', site: 'Westbrook Apartments', addr: 'Cars 1–2 · Traction', m: 'Nov', day: 9, pri: 'Medium', st: 'ready' },
+      { id: 'ST-10524', site: 'Grand Ave Garage', addr: 'Car 1 · Hydraulic', m: 'Nov', day: 22, pri: 'Low', st: 'sa' },
+      { id: 'ST-10531', site: 'Maple Court Senior Living', addr: 'Car 1 · MRL traction', m: 'Dec', day: 2, pri: 'High', st: 'ready' },
+      { id: 'ST-10535', site: 'Union Station Annex', addr: 'Freight car F1', m: 'Dec', day: 12, pri: 'Low', st: 'approval' }
+    ];
+    const MONTHS = [['Oct', 'October 2026'], ['Nov', 'November 2026'], ['Dec', 'December 2026']];
+    const filtered = CASES.filter((c) =>
+      (month === 'All' || c.m === month) &&
+      (!status || c.st === status) &&
+      (!stale || !!c.late));
+    const groups = MONTHS.map(([id, label]) => {
+      const list = filtered.filter((c) => c.m === id)
+        .sort((a, b) => (PR[a.pri] - PR[b.pri]) || (a.day - b.day))
+        .map((c) => ({
+          id: c.id, site: c.site, addr: c.addr, pri: c.pri, dot: DOT[c.pri],
+          due: c.m + ' ' + c.day, status: ST[c.st].label, bg: ST[c.st].bg, fg: ST[c.st].fg,
+          href: ST[c.st].href, stale: !!c.late, late: c.late || 0
+        }));
+      return { label, count: list.length + (list.length === 1 ? ' case' : ' cases'), cases: list };
+    }).filter((g) => g.cases.length > 0);
+    const tiles = Object.keys(ST).map((k) => ({
+      label: ST[k].label, bg: ST[k].bg, fg: ST[k].fg,
+      count: CASES.filter((c) => c.st === k).length,
+      on: status === k, off: status !== k,
+      pick: () => this.setState({ status: status === k ? '' : k })
+    }));
+    const months = [['All', 'All'], ['Oct', 'October'], ['Nov', 'November'], ['Dec', 'December']].map(([id, label]) => ({
+      label, on: month === id, off: month !== id, pick: () => this.setState({ month: id })
+    }));
+    return {
+      shownCount: filtered.length,
+      staleLabel: stale ? 'Show all cases' : 'Show overdue',
+      toggleStale: () => this.setState({ stale: !stale }),
+      tiles, months, groups,
+      empty: groups.length === 0,
+      hasFilter: month !== 'All' || !!status || stale,
+      clear: () => this.setState({ month: 'All', status: '', stale: false })
+    };
+  }
+}
+</script>
+</body>
+</html>
